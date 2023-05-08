@@ -10,8 +10,6 @@ $ids = $bp_ids;
 $group_id = bp_get_current_group_id();
 // var_dump($group_id);
 
-
-
 // Modified By Ls End
 
 if (!empty($ids)):
@@ -35,7 +33,6 @@ if (!empty($ids)):
     if ($show_slider):
 
 // modified by ls end
-
 //     var_dump($ids_array);
         ?>
         <style>
@@ -154,9 +151,6 @@ if (!empty($ids)):
                                         $activity_meta = bp_activity_get_meta($activity_id);
 
                                         if (array_key_exists("bp_video_ids", $activity_meta)) {
-//                                 modified by ls start
-// 									if (array_key_exists("bp_video_ids", $activity_meta)&& in_array($ids, $group_id)) {
-// 										Modified by ls end
 
                                             $bp_video_ids              = $activity_meta['bp_video_ids'][0]; // this is video id
                                             $video_attachment_id_array = BP_Media::get($args = array(
@@ -167,20 +161,16 @@ if (!empty($ids)):
                                             $bp_video_url              = wp_get_attachment_url($video_attachment_id);
                                             ?>
                                             <div class="pinPostImg">
+
                                                 <video width="100%" height="99%" controls="controls" type="video/mp4"
                                                        preload="none">
                                                     <source src="<?= $bp_video_url ?>" autostart="false">
                                                     Your browser does not support the video tag.
                                                 </video>
 
-
                                             </div>
                                             <?php
                                         } elseif (array_key_exists("bp_media_ids", $activity_meta)) {
-//                                 Modified by ls start
-// 										} elseif (array_key_exists("bp_media_ids", $activity_meta)&& in_array($ids, $group_id)) {
-// 										modified by ls end
-
                                             $bp_photo_ids = $activity_meta['bp_media_ids'][0];  // get 1st photo id
                                             $bp_get_image = bp_media_get_specific(array('media_ids' => $bp_photo_ids));
                                             $photo_url    = $bp_get_image["medias"][0]->attachment_data->thumb;
@@ -210,9 +200,6 @@ if (!empty($ids)):
                                             </div>
                                             <?Php
                                         } elseif (array_key_exists("bp_document_ids", $activity_meta)) {
-//                                 modified by ls start
-// 										} elseif (array_key_exists("bp_document_ids", $activity_meta)&& in_array($ids, $group_id)) {
-// modified by ls end
                                             $bp_document_ids       = $activity_meta['bp_document_ids'];
                                             $bp_doc_atach_id_array = bp_media_get_specific(array('bp_document_ids' => $bp_document_ids));
                                             global $wpdb;
@@ -282,6 +269,21 @@ if (!empty($ids)):
             </div>
         </div>
         <!-- Modified by ls start -->
+    <?php else: ?>
+        <div class="c-featuredSec">
+            <div class="c-secTitle"><h3>Featured</h3></div>
+            <div class="feturedPostsSlider-wrap">
+                <div class="swiper-button-next swiperButton"></div>
+                <div class="swiper-button-prev swiperButton"></div>
+                <div class="c-feturedPostsSlider">
+                    <div class="swiper-wrapper no-activities-post">
+                        <div class="singlePinPost">
+                            <p class="no-activities-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php endif; ?>
     <!-- Modified by ls end -->
 <?php endif; ?>
